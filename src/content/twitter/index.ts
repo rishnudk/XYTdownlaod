@@ -45,27 +45,28 @@ function createDownloadButton(url: string, filename: string, isVideo: boolean = 
         
         btn.style.opacity = '1';
 
-        dropdown = document.createElement('div');
-        dropdown.style.position = 'absolute';
-        dropdown.style.top = '100%';
-        dropdown.style.right = '0';
-        dropdown.style.marginTop = '4px';
-        dropdown.style.backgroundColor = 'white';
-        dropdown.style.color = 'black';
-        dropdown.style.borderRadius = '8px';
-        dropdown.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
-        dropdown.style.padding = '4px';
-        dropdown.style.minWidth = '120px';
-        dropdown.style.display = 'flex';
-        dropdown.style.flexDirection = 'column';
-        dropdown.style.gap = '2px';
+        const currentDropdown = document.createElement('div');
+        dropdown = currentDropdown;
+        currentDropdown.style.position = 'absolute';
+        currentDropdown.style.top = '100%';
+        currentDropdown.style.right = '0';
+        currentDropdown.style.marginTop = '4px';
+        currentDropdown.style.backgroundColor = 'white';
+        currentDropdown.style.color = 'black';
+        currentDropdown.style.borderRadius = '8px';
+        currentDropdown.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+        currentDropdown.style.padding = '4px';
+        currentDropdown.style.minWidth = '120px';
+        currentDropdown.style.display = 'flex';
+        currentDropdown.style.flexDirection = 'column';
+        currentDropdown.style.gap = '2px';
 
         if (videos.length === 0) {
           const item = document.createElement('div');
           item.innerText = 'No video found';
           item.style.padding = '8px 12px';
           item.style.fontSize = '12px';
-          dropdown.appendChild(item);
+          currentDropdown.appendChild(item);
         }
 
         videos.forEach((vid: any, index: number) => {
@@ -104,10 +105,10 @@ function createDownloadButton(url: string, filename: string, isVideo: boolean = 
               }
             });
           };
-          dropdown.appendChild(item);
+          currentDropdown.appendChild(item);
         });
 
-        container.appendChild(dropdown);
+        container.appendChild(currentDropdown);
 
       } catch (err) {
         btn.style.opacity = '1';
@@ -210,3 +211,5 @@ const observer = new MutationObserver(() => {
 observer.observe(document.body, { childList: true, subtree: true });
 // Run once on load
 processMedia();
+
+export {};

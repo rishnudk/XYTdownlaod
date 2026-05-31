@@ -14,7 +14,8 @@
     "https://twitter.com/*",
     "https://x.com/*",
     "https://www.youtube.com/*",
-    "https://api.vxtwitter.com/*"
+    "https://api.vxtwitter.com/*",
+    "https://api.cobalt.tools/*"
   ],
   "background": {
     "service_worker": "background.js",
