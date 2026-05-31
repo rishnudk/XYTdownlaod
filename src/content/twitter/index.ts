@@ -47,23 +47,25 @@ function createDownloadButton(url: string, filename: string) {
 }
 
 function processPhotos() {
-  const photos = document.querySelectorAll('div[data-testid="tweetPhoto"]:not([data-injected="true"])');
-  photos.forEach(photo => {
-    photo.setAttribute('data-injected', 'true');
-    const img = photo.querySelector('img');
-    if (img && img.src) {
+  const photos = document.querySelectorAll('img[src*="pbs.twimg.com/media/"]:not([data-injected="true"])');
+  photos.forEach((img: Element) => {
+    img.setAttribute('data-injected', 'true');
+    const imgSrc = (img as HTMLImageElement).src;
+    if (imgSrc) {
       // Create a unique filename
-      const extMatch = img.src.match(/format=([^&]+)/);
+      const extMatch = imgSrc.match(/format=([^&]+)/);
       const ext = extMatch ? extMatch[1] : 'jpg';
       const filename = `x_photo_${Date.now()}.${ext}`;
       
-      const btn = createDownloadButton(img.src, filename);
+      const btn = createDownloadButton(imgSrc, filename);
       
       // Make sure parent has relative positioning
-      const wrapper = photo.parentElement;
-      if (wrapper) {
-        wrapper.style.position = 'relative';
-        wrapper.appendChild(btn);
+      const photoEl = img.parentElement as HTMLElement;
+      if (photoEl) {
+        if (window.getComputedStyle(photoEl).position === 'static') {
+          photoEl.style.position = 'relative';
+        }
+        photoEl.appendChild(btn);
       }
     }
   });

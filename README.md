@@ -1,4 +1,4 @@
-# X & YouTube Media Downloader
+# XYTdownloader
 
 A developer-mode Chrome Extension built for downloading media from X (Twitter) and YouTube.
 

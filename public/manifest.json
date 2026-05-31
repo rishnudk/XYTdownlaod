@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Media Downloader",
+  "name": "XYTdownloader",
   "version": "1.0.0",
   "description": "Download media from X and YouTube",
   "permissions": [
