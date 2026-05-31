@@ -1,73 +1,39 @@
-# React + TypeScript + Vite
+# X & YouTube Media Downloader
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A developer-mode Chrome Extension built for downloading media from X (Twitter) and YouTube.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **X (Twitter):** Detects tweets and adds a direct download button over images to fetch the highest available original quality.
+- **YouTube:** (Upcoming) Download videos, audio, and thumbnails.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Framework:** React + TypeScript
+- **Build Tool:** Vite
+- **Styling:** TailwindCSS (v4) + shadcn/ui
+- **Architecture:** Chrome Extension Manifest V3 (Service Worker, Content Scripts)
 
-## Expanding the ESLint configuration
+## Installation (Developer Mode)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Since this extension is for personal use and is not published on the Chrome Web Store, you will need to load it manually:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. Clone or download this repository.
+2. Ensure you have [Node.js](https://nodejs.org/) installed.
+3. Install dependencies and build the extension:
+   ```bash
+   npm install
+   npm run build
+   ```
+4. Open Google Chrome and navigate to `chrome://extensions/`.
+5. Enable **Developer mode** using the toggle in the top right corner.
+6. Click the **Load unpacked** button and select the `dist` folder located inside the project directory.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Development
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+To watch for file changes and rebuild automatically during development:
+
+```bash
+npm run build -- --watch
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+*(Note: You will still need to reload the extension in `chrome://extensions/` or refresh the page for content scripts to reflect updates.)*
