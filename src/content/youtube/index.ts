@@ -54,54 +54,19 @@ function injectDownloadButton() {
     }
     
     try {
-      const res = await fetch('https://api.cobalt.tools/api/json', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          url: window.location.href,
-          vQuality: "1080",
-          filenamePattern: "classic"
-        })
-      });
-
-      if (!res.ok) {
-        throw new Error(`API returned ${res.status}`);
-      }
-
-      const data = await res.json();
+      // Cobalt is currently down for YouTube due to Google's SABR rollout.
+      // We'll use a reliable commercial downloader (SaveFrom/ssyoutube) as the fallback.
+      const ytUrl = new URL(window.location.href);
+      const ssUrl = `https://www.ssyoutube.com${ytUrl.pathname}${ytUrl.search}`;
+      window.open(ssUrl, '_blank');
       
-      if (data.status === 'stream' || data.status === 'redirect' || data.status === 'success') {
-        const videoUrl = data.url;
-        
-        let title = document.querySelector('title')?.innerText.replace(' - YouTube', '') || 'youtube_video';
-        title = title.replace(/[^a-zA-Z0-9 ]/g, '').replace(/ /g, '_');
-        
-        btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg> <span>Downloading...</span>`;
-        
-        chrome.runtime.sendMessage({
-          action: 'DOWNLOAD_MEDIA',
-          payload: {
-            url: videoUrl,
-            filename: `${title}_1080p.mp4`
-          }
-        }, (response: any) => {
-          if (response && response.success) {
-            btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>Done</span>`;
-            btn.style.borderColor = '#22c55e';
-            setTimeout(() => { 
-              btn.innerHTML = originalHTML; 
-              btn.style.borderColor = 'rgba(255,255,255,0.2)';
-            }, 3000);
-          } else {
-            throw new Error('Download failed in background worker');
-          }
-        });
-      } else {
-        throw new Error('API did not return a valid URL');
-      }
+      btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>Opened</span>`;
+      btn.style.borderColor = '#22c55e';
+      setTimeout(() => { 
+        btn.innerHTML = originalHTML; 
+        btn.style.borderColor = 'rgba(255,255,255,0.2)';
+      }, 3000);
+      
     } catch (err) {
       console.error('YouTube download failed:', err);
       btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg> <span>Failed</span>`;
