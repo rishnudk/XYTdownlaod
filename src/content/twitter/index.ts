@@ -119,10 +119,10 @@ function createDownloadButton(url: string, filename: string, isVideo: boolean = 
       // Photo download logic
       const origUrl = url.replace(/name=[^&]+/, 'name=orig');
       chrome.runtime.sendMessage({
-        action: 'DOWNLOAD_MEDIA',
+        action: 'DOWNLOAD_IMAGE_AS_PNG',
         payload: {
-          url: origUrl,
-          filename: filename
+          urlCandidates: [origUrl, url],
+          filename: filename.replace(/\.[^.]+$/, '.png')
         }
       }, (response: any) => {
         if (response && response.success) {
@@ -166,9 +166,7 @@ function processMedia() {
     img.setAttribute('data-injected', 'true');
     const imgSrc = (img as HTMLImageElement).src;
     if (imgSrc) {
-      const extMatch = imgSrc.match(/format=([^&]+)/);
-      const ext = extMatch ? extMatch[1] : 'jpg';
-      const filename = `x_photo_${Date.now()}.${ext}`;
+      const filename = `x_photo_${Date.now()}.png`;
       
       const btn = createDownloadButton(imgSrc, filename, false);
       
