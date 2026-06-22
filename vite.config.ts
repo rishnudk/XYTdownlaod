@@ -18,6 +18,7 @@ export default defineConfig({
         background: path.resolve(__dirname, 'src/background/index.ts'),
         'content/twitter': path.resolve(__dirname, 'src/content/twitter/index.ts'),
         'content/youtube': path.resolve(__dirname, 'src/content/youtube/index.ts'),
+        'content/dribbble': path.resolve(__dirname, 'src/content/dribbble/index.ts'),
         'content/pinterest': path.resolve(__dirname, 'src/content/pinterest/index.ts')
       },
       output: {

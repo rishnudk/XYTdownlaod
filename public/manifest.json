@@ -13,6 +13,8 @@
   "host_permissions": [
     "https://twitter.com/*",
     "https://x.com/*",
+    "https://dribbble.com/*",
+    "https://*.dribbble.com/*",
     "https://www.pinterest.com/*",
     "https://pinterest.com/*",
     "https://i.pinimg.com/*",
@@ -56,6 +58,15 @@
       ],
       "js": [
         "content/youtube.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "https://dribbble.com/*"
+      ],
+      "js": [
+        "content/dribbble.js"
       ],
       "run_at": "document_end"
     },
