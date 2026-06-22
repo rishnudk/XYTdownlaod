@@ -1,11 +1,18 @@
 # XYTdownloader
 
-A developer-mode Chrome Extension built for downloading media from X (Twitter) and YouTube.
+A developer-mode Chrome Extension built for downloading media from X (Twitter), Pinterest, Dribbble, and YouTube.
 
 ## Features
 
-- **X (Twitter):** Detects tweets and adds a direct download button over images to fetch the highest available original quality.
-- **YouTube:** (Upcoming) Download videos, audio, and thumbnails.
+- **X (Twitter):** Detects tweets and adds a direct download button over images to fetch the highest available quality, saved as PNG.
+- **Pinterest:** Adds a download button to pin images and converts them to PNG before saving.
+- **Dribbble:** Adds a download button to shot images and converts them to PNG before saving.
+- **YouTube:** Download videos, audio, and thumbnails.
+
+## Output
+
+- Image downloads are normalized to `.png` output where supported.
+- Video downloads keep their original media format.
 
 ## Tech Stack
 
